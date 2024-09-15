@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1st way to make a promise call
+      /*
+      function getAnimalData() {
+        // Fetching data using promises
+        fetch("https://fakerapi.it/api/v1/persons/")
+          .then(function (response) {
+            // response.json() is also a promise
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data); // Display the data in the console
+          });
+      }
+      */
+      //  2nd way to make a promise call
+      async function getAnimalData() {
+        const response = await fetch("https://fakerapi.it/api/v1/persons/");
+        const data = await response.json();
+        console.log(data);
+      }
+
+      // Call the function to get animal data
+      getAnimalData();
+    </script>
+    <button onclick="getAnimalData()">Get animal data</button>
+  </body>
+</html>
