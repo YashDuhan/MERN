@@ -44,10 +44,13 @@ app.post("/todo", async function (req, res) {
 // this is also a promise
 
 app.get("/todos", async function (req, res) {
-  const todos = await todo.find({});
-  console.log(todos);
+  try {
+    const todos = await todo.find({});
+    res.json(todos);
+  } catch (error) {
+    res.status(500).json({ msg: "Error fetching todos", error });
+  }
 });
-
 //mark as completed
 app.put("/completed", async function (req, res) {
   const updatePayload = req.body;
@@ -58,7 +61,7 @@ app.put("/completed", async function (req, res) {
     });
     return;
   }
-  await todo.update(
+  await todo.updateOne(
     {
       // need 2 arguments(unique id and set complete to true)
       _id: req.body.id,
